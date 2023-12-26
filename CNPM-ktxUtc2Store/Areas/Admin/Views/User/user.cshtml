@@ -1,0 +1,32 @@
+﻿@model CNPM_ktxUtc2Store.Areas.Admin.dto.UserDto
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="admin-user-all">
+    <div class="admin-user-all-block">
+        <div class=""> 
+            <div class="admin-user-all-block-header header-color">
+                <div class="admin-user-all-block-header-img">Hình ảnh</div>
+                <div class="admin-user-all-block-header-name">Tên</div>
+                <div class="admin-user-all-block-header-phone">SĐT</div>
+                <div class="admin-user-all-block-header-email">Email</div>
+         
+            </div>
+            <div class="admin-user-all-block-header">
+                @foreach(var dto in Model.Users)
+                {
+                    <div class="admin-user-all-block-header-img">
+                        <img src="/images/@dto.profilePicture" style="width:80px;height:80px;">
+                    </div>
+                    <div class="admin-user-all-block-header-name">@dto.fullname</div>
+                    <div class="admin-user-all-block-header-phone">@dto.PhoneNumber</div>
+                    <div class="admin-user-all-block-header-email">@dto.Email</div>
+                }
+               
+            </div>
+
+        </div>
+    </div>
+</div>
