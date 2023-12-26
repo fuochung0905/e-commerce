@@ -23,7 +23,7 @@
 
             </div>
         </div>
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <form asp-area="Saler" asp-controller="products" asp-action="Create" method="post" enctype="multipart/form-data">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
              <div>
                 
@@ -59,7 +59,7 @@
                     <div style="display:flex; justify-content:space-between">
                         <select asp-for="categoryId" class="form-control" asp-items="ViewBag.categoryId" style="width:95%;"> </select>
                         <div class="add-product-1">
-                            <a class="wrap-btn " style="background-color:#F8F8F8 ; height:100%;" href="/Admin/Categories"><i class="fas fa-plus" style="font-size: 1em; padding-right: 5px;"></i></a>
+                            <a class="wrap-btn " style="background-color:#F8F8F8 ; height:100%;" href="/Saler/Categories"><i class="fas fa-plus" style="font-size: 1em; padding-right: 5px;"></i></a>
                         </div>
                     </div>
                    
@@ -79,7 +79,8 @@
             </div>
             <div style="display:flex ; justify-content: space-between; padding-top:10px; padding-bottom: 10px;">
                 <div class="form-group">
-                    <input type="submit" value="Lưu" class="wrap-btn " style="background-color:#F8F8F8" />
+                    <button type="submit" asp-area="Saler" asp-controller="products" asp-action="Create"  class="wrap-btn " style="background-color:#F8F8F8">Lưu</button>
+                   
                 </div>
                 
             </div>

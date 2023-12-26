@@ -11,5 +11,15 @@
     border: 1px solid #ccc;
     text-align: center;
     padding: 20px;
+    background: #ffff;
+}
+.admin-user-all-block-header{
+    display:flex;
+    justify-content:space-between;
+    height:50px;
+
+}
+.header-color {
     background: #E8E8E8;
+    
 }

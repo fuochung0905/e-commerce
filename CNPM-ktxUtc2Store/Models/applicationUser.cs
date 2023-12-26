@@ -14,7 +14,7 @@ namespace CNPM_ktxUtc2Store.Models
         public bool isRole {  get; set; }=false;
         public bool isSaler { get; set; }=false;
 
-        public virtual List<product> Products { get; set; } = new List<product>();
+        public virtual List<productUser> ProductUsers { get; set; } = new List<productUser>();
         public virtual List<UserAdress> UserAdresses { get; set; } = new List<UserAdress>();
 
     }

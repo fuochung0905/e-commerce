@@ -2,7 +2,7 @@
 {
     public class UserDto
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public List<applicationUser> Users { get; set; }=new List<applicationUser>();
     }
 }

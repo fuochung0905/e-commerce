@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CNPM_ktxUtc2Store.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231224203114_updatenha")]
-    partial class updatenha
+    [Migration("20231226131645_done")]
+    partial class done
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -319,6 +319,9 @@ namespace CNPM_ktxUtc2Store.Migrations
                     b.Property<DateTime>("createDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("isHuy")
+                        .HasColumnType("bit");
+
                     b.Property<int>("orderStatusId")
                         .HasColumnType("int");
 
@@ -402,11 +405,13 @@ namespace CNPM_ktxUtc2Store.Migrations
                     b.Property<int>("categoryId")
                         .HasColumnType("int");
 
+                    b.Property<int>("daban")
+                        .HasColumnType("int");
+
                     b.Property<string>("description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("imageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("oldprice")
@@ -432,6 +437,21 @@ namespace CNPM_ktxUtc2Store.Migrations
                     b.HasIndex("categoryId");
 
                     b.ToTable("product");
+                });
+
+            modelBuilder.Entity("CNPM_ktxUtc2Store.Models.productUser", b =>
+                {
+                    b.Property<int>("productId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("applicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("productId", "applicationUserId");
+
+                    b.HasIndex("applicationUserId");
+
+                    b.ToTable("productUsers");
                 });
 
             modelBuilder.Entity("CNPM_ktxUtc2Store.Models.productVariation", b =>
@@ -630,21 +650,6 @@ namespace CNPM_ktxUtc2Store.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("applicationUserproduct", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ProductId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("applicationUserproduct");
-                });
-
             modelBuilder.Entity("CNPM_ktxUtc2Store.Models.AdressStorage", b =>
                 {
                     b.HasOne("CNPM_ktxUtc2Store.Models.InforStorage", "InforStorage")
@@ -754,6 +759,25 @@ namespace CNPM_ktxUtc2Store.Migrations
                     b.Navigation("category");
                 });
 
+            modelBuilder.Entity("CNPM_ktxUtc2Store.Models.productUser", b =>
+                {
+                    b.HasOne("CNPM_ktxUtc2Store.Models.applicationUser", "applicationUser")
+                        .WithMany("ProductUsers")
+                        .HasForeignKey("applicationUserId")
+                        .OnDelete(DeleteBehavior.ClientNoAction)
+                        .IsRequired();
+
+                    b.HasOne("CNPM_ktxUtc2Store.Models.product", "Product")
+                        .WithMany("ProductUsers")
+                        .HasForeignKey("productId")
+                        .OnDelete(DeleteBehavior.ClientNoAction)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("applicationUser");
+                });
+
             modelBuilder.Entity("CNPM_ktxUtc2Store.Models.productVariation", b =>
                 {
                     b.HasOne("CNPM_ktxUtc2Store.Models.product", "product")
@@ -846,21 +870,6 @@ namespace CNPM_ktxUtc2Store.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("applicationUserproduct", b =>
-                {
-                    b.HasOne("CNPM_ktxUtc2Store.Models.product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CNPM_ktxUtc2Store.Models.applicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("CNPM_ktxUtc2Store.Models.Adress", b =>
                 {
                     b.Navigation("UserAdresses");
@@ -875,6 +884,8 @@ namespace CNPM_ktxUtc2Store.Migrations
 
             modelBuilder.Entity("CNPM_ktxUtc2Store.Models.applicationUser", b =>
                 {
+                    b.Navigation("ProductUsers");
+
                     b.Navigation("UserAdresses");
                 });
 
@@ -892,6 +903,8 @@ namespace CNPM_ktxUtc2Store.Migrations
 
             modelBuilder.Entity("CNPM_ktxUtc2Store.Models.product", b =>
                 {
+                    b.Navigation("ProductUsers");
+
                     b.Navigation("ProductVariations");
                 });
 

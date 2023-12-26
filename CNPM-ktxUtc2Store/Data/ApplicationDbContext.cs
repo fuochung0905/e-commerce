@@ -25,11 +25,12 @@ namespace CNPM_ktxUtc2Store.Data
         public DbSet<applicationUser> applicationUsers { get; set; }
         public DbSet<Adress> adresses { get; set; }
         public DbSet<UserAdress> userAdresses { get; set; }
+        public DbSet<productUser>productUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-           
+
             builder.Entity<productVariation>().HasKey(pv => new { pv.productId, pv.variationId });
             builder.Entity<productVariation>()
                 .HasOne(pv => pv.product).WithMany(pv => pv.ProductVariations)
@@ -37,6 +38,7 @@ namespace CNPM_ktxUtc2Store.Data
             builder.Entity<productVariation>()
               .HasOne(pv => pv.variation).WithMany(pv => pv.ProductVariations)
               .HasForeignKey(p => p.variationId).OnDelete(DeleteBehavior.ClientNoAction);
+
 
             builder.Entity<UserAdress>().HasKey(ua => new { ua.AdressId, ua.applicationUserId });
             builder.Entity<UserAdress>()
@@ -46,12 +48,15 @@ namespace CNPM_ktxUtc2Store.Data
               .HasOne(pv => pv.applicationUser).WithMany(pv => pv.UserAdresses)
               .HasForeignKey(p => p.applicationUserId).OnDelete(DeleteBehavior.ClientNoAction);
 
-            builder.Entity<product>()
-       .HasMany(e => e.ApplicationUsers)
-       .WithMany(e => e.Products)
-       .UsingEntity(
-           l => l.HasOne(typeof(applicationUser)).WithMany().HasForeignKey("UserId"),
-           r => r.HasOne(typeof(product)).WithMany().HasForeignKey("ProductId"));
+
+            builder.Entity<productUser>().HasKey(ua => new { ua.productId, ua.applicationUserId });
+            builder.Entity<productUser>()
+                .HasOne(pv => pv.Product).WithMany(pv => pv.ProductUsers)
+                .HasForeignKey(p => p.productId).OnDelete(DeleteBehavior.ClientNoAction);
+            builder.Entity<productUser>()
+              .HasOne(pv => pv.applicationUser).WithMany(pv => pv.ProductUsers)
+              .HasForeignKey(p => p.applicationUserId).OnDelete(DeleteBehavior.ClientNoAction);
+
         }
 
         public DbSet<CNPM_ktxUtc2Store.Models.InforStorage> InforStorage { get; set; } = default!;

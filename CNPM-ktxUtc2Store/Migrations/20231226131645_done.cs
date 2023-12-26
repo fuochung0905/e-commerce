@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CNPM_ktxUtc2Store.Migrations
 {
     /// <inheritdoc />
-    public partial class pttkht : Migration
+    public partial class done : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,6 +47,8 @@ namespace CNPM_ktxUtc2Store.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     fullname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     profilePicture = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isRole = table.Column<bool>(type: "bit", nullable: false),
+                    isSaler = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -78,6 +80,28 @@ namespace CNPM_ktxUtc2Store.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_category", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InforStorage",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    namestorage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    logo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    linkfacbook = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    linkInstagram = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    linkyoutube = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    linktiktok = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    phonenumbershop = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    emailcskh = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    emailwork = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    timework = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InforStorage", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -252,9 +276,11 @@ namespace CNPM_ktxUtc2Store.Migrations
                     description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     oldprice = table.Column<double>(type: "float", nullable: false),
                     price = table.Column<double>(type: "float", nullable: false),
+                    soluongnhap = table.Column<int>(type: "int", nullable: false),
                     imageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     categoryId = table.Column<int>(type: "int", nullable: false),
-                    qty_inStock = table.Column<int>(type: "int", nullable: false)
+                    qty_inStock = table.Column<int>(type: "int", nullable: false),
+                    daban = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -289,13 +315,56 @@ namespace CNPM_ktxUtc2Store.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "adressStorage",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NameAdress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InforStorageId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_adressStorage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_adressStorage_InforStorage_InforStorageId",
+                        column: x => x.InforStorageId,
+                        principalTable: "InforStorage",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "bannerStorage",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Bannerpicture = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InforStorageId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_bannerStorage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_bannerStorage_InforStorage_InforStorageId",
+                        column: x => x.InforStorageId,
+                        principalTable: "InforStorage",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "order",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     createDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    updateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDelete = table.Column<bool>(type: "bit", nullable: false),
+                    IsComplete = table.Column<bool>(type: "bit", nullable: false),
+                    isHuy = table.Column<bool>(type: "bit", nullable: false),
                     orderStatusId = table.Column<int>(type: "int", nullable: false),
                     applicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -347,6 +416,28 @@ namespace CNPM_ktxUtc2Store.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "productUsers",
+                columns: table => new
+                {
+                    applicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    productId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_productUsers", x => new { x.productId, x.applicationUserId });
+                    table.ForeignKey(
+                        name: "FK_productUsers_AspNetUsers_applicationUserId",
+                        column: x => x.applicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_productUsers_product_productId",
+                        column: x => x.productId,
+                        principalTable: "product",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "productVariations",
                 columns: table => new
                 {
@@ -379,7 +470,8 @@ namespace CNPM_ktxUtc2Store.Migrations
                     color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     unitPrice = table.Column<double>(type: "float", nullable: false),
                     orderId = table.Column<int>(type: "int", nullable: false),
-                    productId = table.Column<int>(type: "int", nullable: false)
+                    productId = table.Column<int>(type: "int", nullable: false),
+                    addressuer = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -397,6 +489,11 @@ namespace CNPM_ktxUtc2Store.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_adressStorage_InforStorageId",
+                table: "adressStorage",
+                column: "InforStorageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -438,6 +535,11 @@ namespace CNPM_ktxUtc2Store.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_bannerStorage_InforStorageId",
+                table: "bannerStorage",
+                column: "InforStorageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_cartDetail_productId",
                 table: "cartDetail",
                 column: "productId");
@@ -473,6 +575,11 @@ namespace CNPM_ktxUtc2Store.Migrations
                 column: "categoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_productUsers_applicationUserId",
+                table: "productUsers",
+                column: "applicationUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_productVariations_variationId",
                 table: "productVariations",
                 column: "variationId");
@@ -497,6 +604,9 @@ namespace CNPM_ktxUtc2Store.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "adressStorage");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -512,10 +622,16 @@ namespace CNPM_ktxUtc2Store.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "bannerStorage");
+
+            migrationBuilder.DropTable(
                 name: "cartDetail");
 
             migrationBuilder.DropTable(
                 name: "orderDetail");
+
+            migrationBuilder.DropTable(
+                name: "productUsers");
 
             migrationBuilder.DropTable(
                 name: "productVariations");
@@ -525,6 +641,9 @@ namespace CNPM_ktxUtc2Store.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "InforStorage");
 
             migrationBuilder.DropTable(
                 name: "shoppingCart");

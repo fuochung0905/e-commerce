@@ -8,21 +8,35 @@
     <div class="admin-user-all-block">
         <div class=""> 
             <div class="admin-user-all-block-header header-color">
+                <div class="admin-user-all-block-header-select"></div>
                 <div class="admin-user-all-block-header-img">Hình ảnh</div>
                 <div class="admin-user-all-block-header-name">Tên</div>
                 <div class="admin-user-all-block-header-phone">SĐT</div>
                 <div class="admin-user-all-block-header-email">Email</div>
+                <div class="admin-user-all-block-header-control">Thao tác</div>
          
             </div>
             <div class="admin-user-all-block-header">
                 @foreach(var dto in Model.Users)
                 {
-                    <div class="admin-user-all-block-header-img">
-                        <img src="/images/@dto.profilePicture" style="width:80px;height:80px;">
-                    </div>
-                    <div class="admin-user-all-block-header-name">@dto.fullname</div>
-                    <div class="admin-user-all-block-header-phone">@dto.PhoneNumber</div>
-                    <div class="admin-user-all-block-header-email">@dto.Email</div>
+                    <form asp-area="Admin" asp-controller="User" asp-action="user">
+                        <div class="admin-user-all-block-header-select">
+                            <label>
+                                <input type="radio" asp-for="Id" value="@dto.Id">
+                            </label>
+                        </div>
+                        <div class="admin-user-all-block-header-img">
+                            <img src="/images/@dto.profilePicture" style="width:80px;height:80px;">
+                        </div>
+
+                        <div class="admin-user-all-block-header-name">@dto.fullname</div>
+                        <div class="admin-user-all-block-header-phone">@dto.PhoneNumber</div>
+                        <div class="admin-user-all-block-header-email">@dto.Email</div>
+                        <div class="admin-user-all-block-header-control">
+                            <button type="submit">Duyệt</button>
+                        </div>
+                    </form>
+                   
                 }
                
             </div>

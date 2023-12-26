@@ -44,7 +44,7 @@ namespace CNPM_ktxUtc2Store.Controllers
             user.isRole = true;
              _context.applicationUsers.Update(user);
             await _context.SaveChangesAsync();
-            await _usermanagement.AddToRoleAsync(user, Roles.Saler.ToString());
+         
             return RedirectToAction("Index", "Home");
         }
     }

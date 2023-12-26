@@ -27,12 +27,13 @@ namespace CNPM_ktxUtc2Store.Areas.Saler.Controllers
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(category category)
         {
-            _context.Add(category);
+            category model = new category();
+            model.categoryName = category.categoryName;
+            _context.categories.Add(model);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index","products");
         }
 
         // GET: Admin/categories/Details/5
@@ -62,10 +63,12 @@ namespace CNPM_ktxUtc2Store.Areas.Saler.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,categoryName")] category category)
+        public async Task<IActionResult> Create(category category)
         {
-             
-                _context.Add(category);
+            category model = new category();
+            model.categoryName = category.categoryName;
+
+                _context.categories.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             

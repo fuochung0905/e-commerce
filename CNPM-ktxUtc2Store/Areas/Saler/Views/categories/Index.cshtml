@@ -17,12 +17,12 @@
                 </div>
                 <div class="head-item add-product">
                     <div class="add-product-1">
-                        <a class="wrap-btn " style="background-color:#F8F8F8" href="/Admin/products">Danh sách sản phẩm</a>
+                        <a class="wrap-btn " style="background-color:#F8F8F8" href="/Saler/products">Danh sách sản phẩm</a>
                     </div>
                 </div>
             </div>
             <div style="">
-                <form asp-action="Index">
+                <form asp-area="Saler" asp-controller="categories" asp-action="Index">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div style="display: grid; justify-content: space-evenly; grid-template-columns: 80%;" >
                         <div style="padding-right:10px;">
@@ -35,12 +35,12 @@
                                 <input asp-for="categoryName" class="form-control" />
                             </div>
                             <div style="padding:7px;border:1px solid black; background:#F8F8F8; ">
-                                <a type="submit" asp-area="Admin" asp-controller="Categories" asp-action="Index">Lưu</a>
+                                <button type="submit">Lưu</button>
                             </div>
                            
                           
                         </div>
-                        <span asp-validation-for="categoryName" class="text-danger"></span>
+                   
                     </div>
                 </form>
 

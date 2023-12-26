@@ -18,21 +18,25 @@ namespace CNPM_ktxUtc2Store.Models
         [Range(0, 10000000, ErrorMessage = "Vui lòng nhập số không âm.")]
         [Required(ErrorMessage = "Nhập tên đi đồ ngu")]
         public double? price { get; set; }
-        [Range(0, 10000000, ErrorMessage = "Vui lòng nhập số không âm.")]
-        [Required(ErrorMessage = "Nhập tên đi đồ ngu")]
         public int soluongnhap { get; set; }
-        [Required(ErrorMessage = "Nhập tên đi đồ ngu")]
+    
         public string?  imageUrl { get; set;}
         [NotMapped]
         [Display(Name ="choose image")]
-        public IFormFile image { get; set; }
+        public IFormFile? image { get; set; }
         public int categoryId { get; set;}
-        public virtual category category { get; set; }
+        public virtual category? category { get; set; }
+
         [Range(0,5000000, ErrorMessage = "Vui lòng nhập số không âm.")]
         [Required(ErrorMessage = "Nhập tên đi đồ ngu")]
         public int qty_inStock { get; set; } = 0;
-        public int daban { get; set; } = 0;  
-        public virtual List<applicationUser> ApplicationUsers { get; set; } = new List<applicationUser>();
+
+       
+        public int daban { get; set; } = 0;
+
+        public virtual List<productUser> ProductUsers { get; set; } = new List<productUser>();
+
+
         public virtual List<productVariation> ProductVariations { get; set; }  = new List<productVariation>();
       
     }

@@ -42,14 +42,17 @@ namespace CNPM_ktxUtc2Store.Areas.Saler.Controllers
         // GET: Admin/products
         public IActionResult Index(string name)
         {
+            var userId = GetUserId();
+            var user = _context.applicationUsers.Find(userId);
+            
             productDto productDto = new productDto();
             var product = from p in _context.products.Where(x=>x.qty_inStock>0) select p;
-           
+          
+          
             foreach(var item in product)
             {
-                
                 productDto.products.Add(item);
-                var productvariation = _context.productVariations.Include(x=>x.variation).Where(x => x.productId == item.Id).ToList();
+                var productvariation = _context.productVariations.Include(x => x.variation).Where(x => x.productId == item.Id).ToList();
                 foreach (var i in productvariation)
                 {
                     productDto.productVariation.Add(i);
@@ -106,15 +109,22 @@ namespace CNPM_ktxUtc2Store.Areas.Saler.Controllers
             if (ModelState.IsValid)
             {
                 var userId = GetUserId();
-                var user = await _context.applicationUsers.FindAsync(userId);
+                var user =  _context.applicationUsers.Find(userId);
                 string uni=uploadImage(product);
                 product.imageUrl = uni;
-                product.ApplicationUsers.Add(user);
+                product.soluongnhap = product.qty_inStock;
+                product.daban = 0;
+              
                 _context.Add(product);
+                await _context.SaveChangesAsync();
+                productUser productUser = new productUser();
+                productUser.Product=product;
+                productUser.applicationUser = user;
+                _context.productUsers.Add(productUser);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["categoryId"] = new SelectList(_context.categories, "Id", "Id", product.categoryId);
+            ViewData["categoryId"] = new SelectList(_context.categories, "Id", "categoryName", product.categoryId);
             return View(product);
 
         }
