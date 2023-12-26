@@ -1,0 +1,29 @@
+﻿@model BannerStorage
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Saler/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Thêm Banner</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="file" class="form-control" asp-for="picture" id="ChooseImg" />
+            </div>
+           
+            <div class="form-group box-btn">
+                <input type="submit" value="Lưu" class="wrap-btn m-color-full" />
+                <div>
+                    <a asp-action="Index"><button class="wrap-btn m-color">Trở về</button></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

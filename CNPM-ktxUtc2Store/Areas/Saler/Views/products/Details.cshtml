@@ -1,0 +1,55 @@
+﻿@model IEnumerable<CNPM_ktxUtc2Store.Models.variation>
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Saler/Views/Shared/_Layout.cshtml";
+}
+
+
+       
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+             Id
+            </th>
+            <th>
+              Tên
+            </th>
+            <th>
+              Gía trị
+            </th>
+            <th>
+              Loại
+            </th>
+           
+
+         
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                 @item.Id
+                </td>
+                <td>
+                 @item.name
+                </td>
+                <td>
+                  @item.value
+                </td>
+                <td>
+                @item.category.categoryName
+                </td>
+              
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+   
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,178 @@
+﻿@model CNPM_ktxUtc2Store.Areas.Admin.dto.duyetDon
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="phanloai">
+    <div class="phanloai-item phanloai-all">
+  
+        <a class="hh" onclick="opall()">Tất cả</a>
+    </div>
+    <div class="phanloai-item">
+        <a class="hh" onclick="opwait()">Chờ xử lí</a>
+    </div>
+    <div class="phanloai-item">
+        <a class="hh" onclick="opprocess()">Đã xử lí</a>
+    </div>
+    <div class="phanloai-item">
+        <a class="hh" onclick="opcomplete()">Hoàn thành</a>
+    </div>
+</div>
+<div class="admin-order-head">
+    <div class="head-item">
+        <h5><i class="far fa-clipboard"></i> Danh sách đơn hàng</h5>
+    </div>
+
+    <div class="head-item search-box">
+        <form class="form-inline" asp-area="" asp-controller="Home" asp-action="Index" method="get" style="display: flex; flex-direction: row;">
+            <div class="">
+                <input type="text" name="searchName" placeholder="Search">
+            </div>
+            <button class="" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Tìm</button>
+        </form>
+
+
+    </div>
+   
+</div>
+
+<div class="">
+
+    <div class="content-pl-tab">
+        <div id="content-pl-tab-all" class="pl-tab">
+            <div class="order-all">
+                <div style="display: grid; justify-content: space-evenly; grid-template-columns: 100%;">
+                    <div class="" style="display: flex; flex-direction: column; background: #F8F8F8; border-radius: 10px;">
+                        <div class="admin-orders order-head-color">
+                            <div class="admin-order-select"></div>
+                            <div class="admin-order-user"><h6>Người mua</h6></div>
+                            <div class="admin-order-product"><h6>Sản phẩm</h6></div>
+                            <div class="admin-order-size"><h6>Thể loại</h6></div>
+
+                            <div class="admin-order-sl"><h6>Số lượng</h6></div>
+                            <div class="admin-order-price"><h6>Thành tiền</h6></div>
+                            <div class="admin-order-address"><h6>Địa điểm</h6></div>
+                            <div class="admin-order-date"><h6>Ngày đặt hàng</h6></div>
+                            <div class="admin-order-option"><h6></h6></div>
+                        </div>
+                        <form asp-area="Admin" asp-controller="orders" asp-action="Index">
+
+
+                            @if (Model.orderList.Count == 0)
+                            {
+                                <h1 style="align-content: center;">TRỐNG</h1>
+                            }
+                            @foreach (var item in Model.orderList)
+                            {
+
+                                <div class="admin-orders">
+                                    <div class="admin-order-select">
+                                        <label>
+                                            <input asp-for="Id" type="radio" value="@item.Id" />
+                                        </label>
+                                    </div>
+                                    <div class="admin-order-user">
+                                        <h6>@item.applicationUser.fullname</h6>
+                                        <h6>@item.applicationUser.PhoneNumber</h6>
+                                    </div>
+
+                                    @foreach (var i in item.orderDetails)
+                                    {
+                                        <div class="admin-order-product"><h6>@i.product.productName</h6></div>
+                                        <div class="admin-order-size">
+                                            <h6>@i.size</h6>
+                                            <h6>@i.color</h6>
+                                        </div>
+
+                                        <div class="admin-order-sl">  <h6>@i.quantity</h6></div>
+                                        <div class="admin-order-price">   <h6>@(i.unitPrice * i.quantity)</h6></div>
+                                        <div class="admin-order-address">   <h6> @i.addressuer</h6></div>
+                                        <div class="admin-order-date">  <h6>@item.createDate</h6> </div>
+                                        <div class="admin-order-option">
+                                            @if (item.IsDelete == false && item.IsComplete == false)
+                                            {
+                                                <button style="padding:0 40%; background:#F8F8F8" type="submit">Duyệt</button>
+                                            }
+                                            @if (item.IsDelete == true && item.IsComplete == false)
+                                            {
+                                                <button style="padding:0 40%;background:#F8F8F8" type="submit">Đã giao</button>
+                                            }
+
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+          
+
+        </div>
+        <div id="content-pl-tab-wait" class="pl-tab">
+            @await Component.InvokeAsync("orderwait")
+        </div>
+        <div id="content-pl-tab-process" class="pl-tab">
+            @await Component.InvokeAsync("process")
+        </div>
+        <div id="content-pl-tab-complete" class="pl-tab">
+            @await Component.InvokeAsync("complete")
+        </div>
+    </div>
+</div>
+   
+ @section Scripts
+  {
+
+    <script>
+        async function ordercomplete(orderid) {
+            try {
+                var response = await fetch(`/Admin/orders/ordercomplete?orderId=${orderid}`);
+                if (response.status == 200) {
+                    var result = await response.json();
+                    console.log(result);
+                    console.log("complete");
+                    window.location.href = "#complete"
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+      async  function opwait(){
+            var p = document.getElementsByClassName("pl-tab");
+            for (var i = 0; i < p.length; i++) {
+                p[i].style.display = "none";
+            }
+            var pblock = document.getElementById("content-pl-tab-wait");
+            pblock.style.display = "block";
+        }
+      async  function opall() {
+            var p = document.getElementsByClassName("pl-tab");
+            for (var i = 0; i < p.length; i++) {
+                p[i].style.display = "none";
+
+            }
+            var pblock = document.getElementById("content-pl-tab-all");
+            pblock.style.display = "block";
+        }
+        async function opprocess() {
+            var p = document.getElementsByClassName("pl-tab");
+            for (var i = 0; i < p.length; i++) {
+                p[i].style.display="none";
+            }
+            var pblock = document.getElementById("content-pl-tab-process");
+            pblock.style.display = "block";
+        }
+        async function opcomplete() {
+            var p = document.getElementsByClassName("pl-tab");
+            for (var i = 0; i < p.length; i++) {
+                p[i].style.display = "none";
+            }
+            var pblock = document.getElementById("content-pl-tab-complete");
+            pblock.style.display = "block";
+        }
+    </script>
+  }

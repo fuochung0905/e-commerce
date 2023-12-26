@@ -1,0 +1,39 @@
+﻿@model CNPM_ktxUtc2Store.Areas.Admin.dto.UserDto
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Saler/Views/Shared/_Layout.cshtml";
+}
+<h1>Index</h1>
+<form asp-area="Admin" asp-controller="User" asp-action="user">
+    <div class="user-all-profile">
+        @foreach (var item in Model.Users)
+        {
+            <div class="user-profile">
+                <div class="img-hover">
+                    <img src="/images/@item.profilePicture">
+                </div>
+                <div class="user-details">
+                    <p>@item.fullname</p>
+                    <p>@item.Email</p>
+
+                    @if (item.PhoneNumber == null) 
+                    {
+                        <p>Chưa cập nhật</p>
+                    }
+                    else
+                    {
+                        <p>@item.PhoneNumber</p>
+                    }
+                </div>
+                <div>
+                    @if (item.isRole == true)
+                    {
+                        <button type="submit">Duyệt</button>
+                    }
+                </div>
+               
+            </div>
+        }
+    </div>
+</form>
+

@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<applicationUser> SignInManager
+@inject UserManager<applicationUser> UserManager
+
+
+    
+@if (SignInManager.IsSignedIn(User))
+{
+    <div id="tooltip-login-wrap">
+        <div class="tooltip-login-hover">@await Component.InvokeAsync("user")</div>
+        <div id="tooltip-login-item">
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="menu-item">
+                    <a class="nav-link " asp-area="Admin" asp-controller="daskboard" asp-action="Index">Quản lí </a>
+                </div>
+            }
+
+            <div class="menu-item">
+                <a class="nav-link" href="/Identity/Account/Manage">
+                    <span>Thông Tin Tài Khoản</span>
+                </a>
+            </div>
+            
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Đăng Xuất</button>
+            </form>
+        </div>
+    </div>
+       
+}
+else
+{
+    <div class="login-wrap">
+        <div class="login-item">
+            <a class="" asp-area="Identity" asp-page="/Account/Login"> <i class="fa-solid fa-circle-user"></i> Đăng nhập</a>
+        </div>
+        <div class="login-item">
+            <a class="" asp-area="Identity" asp-page="/Account/Login"> <i class="fa-solid fa-phone"></i> Liên hệ</a>
+        </div>
+    </div>
+
+    
+   
+}
+</ul>

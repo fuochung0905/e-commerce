@@ -1,0 +1,13 @@
+﻿@model wSalerDto
+
+<span>Xin chào @Model.applicationUser.fullname 
+    Tôi là quản lí của website này khi bạn muốn trở thành một người bán trên web của tôi thì bàn phải trả phí hàng tháng và bán có thể bán trên website của chúng tôi
+    Bạn phải chấp nhận những điều khoản của chúng tôi
+</span>
+<form asp-controller="WSaler" asp-action="wantToSaler"> 
+    <label>
+        <input type="checkbox" asp-for="isRole" />Tôi đồng ý
+    </label>
+   <button type="submit">Gửi</button>
+   
+</form>

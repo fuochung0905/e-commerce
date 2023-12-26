@@ -1,0 +1,35 @@
+﻿@model CNPM_ktxUtc2Store.Models.AdressStorage
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Saler/Views/Shared/_Layout.cshtml";
+
+}
+<h1>Create</h1>
+
+<h4>Địa chỉ cửa hàng</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                
+                <input asp-for="NameAdress" class="form-control" />
+                <span asp-validation-for="NameAdress" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group box-btn">
+
+                <input type="submit" placeholder="Địa chỉ" value="Lưu" class="wrap-btn m-color-full"/>   
+            </div>
+        </form>
+        <div>
+            <a asp-action="Index"><button class="wrap-btn m-color">Trở về</button></a>
+        </div>
+    </div>
+</div>
+
+
+

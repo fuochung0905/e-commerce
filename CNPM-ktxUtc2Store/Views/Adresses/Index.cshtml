@@ -1,0 +1,19 @@
+﻿@model changeAdress
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form asp-area="" asp-controller="Adresses" asp-action="Index">
+    <div class="">
+        <div>
+            <h4> Địa chỉ</h4>
+            <a asp-action="Create">Thêm địa chỉ mới</a>
+        </div>
+
+     
+
+    </div>
+    <button type="submit">Chọn</button>
+
+</form>

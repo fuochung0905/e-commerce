@@ -1,0 +1,29 @@
+﻿@model CNPM_ktxUtc2Store.Areas.Admin.dto.UserDto
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Saler/Views/Shared/_Layout.cshtml";
+}
+<h1>Index</h1>
+
+<p style="display: grid; place-content: center;">
+    <a class="wrap-btn m-color-full" asp-action="Create">Create New</a>
+</p>
+<div class="user-all-profile">
+    @foreach (var item in Model.Users)
+    {
+        <div class="user-profile">
+            <div class="img-hover">
+                <img src="/images/@item.profilePicture">
+            </div>
+            <div class="user-details">
+                <p>@item.fullname</p>
+                <p>@item.Email</p>
+                <p>@item.PasswordHash</p>
+                <p>@item.PhoneNumber</p>
+                
+            </div>
+        </div>
+    }
+</div>
+
+

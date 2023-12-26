@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CNPM_ktxUtc2Store</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Option 1: Include in HTML -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/10.3.1/swiper-bundle.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/myorder.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/repos_inven.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/css_cart.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/ctdh.css">
+    <link rel="stylesheet" href="~/css/orderpay.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+
+    <header>
+        <div class="container-large">
+            <div class="top-box">
+                @await Component.InvokeAsync("headerlayout")
+          
+                <partial name="_LoginPartial" />
+            </div>
+            <div class="bottom-box">
+                <ul class="main-menu">
+                </ul>
+                <div class="search-wrap">
+                    <div class="search-box">
+                        <form class="form-inline" asp-area="" asp-controller="Home" asp-action="Index" method="get" style="display: flex; flex-direction: row;">
+                            <div class="">
+                                <input type="text" name="searchName" placeholder="Search">
+                            </div>
+                            <button class="" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </form>
+                    </div>
+                    <a class="cart-box" href="/Cart/GetUserCart">
+                        <i class="bi bi-cart"></i>
+                        <span id="cartCount" class="num">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="content-body">
+        @RenderBody()
+    </div>
+    <footer>
+        <div class="container-large">
+            <div class="wrap-footer">
+
+                <div class="about-us">
+                    <div class="title fw-semibold">Về chúng tôi</div>
+                    @await Component.InvokeAsync("footer1")
+                </div>
+               
+                <div class="other-us">
+                    <div class="title fw-semibold">Chi nhánh</div>
+                    @await Component.InvokeAsync("adressstorage")
+                </div>
+
+                <div class="contact-us">
+                    <div class="title fw-semibold">Liên hệ</div>
+                    @await Component.InvokeAsync("lienhe")
+                </div>
+
+
+                <div class="follow-us">
+                    <div class="title fw-semibold">Hệ thống cửa hàng</div>
+                    @await Component.InvokeAsync("footer2")
+                </div>
+              
+
+            </div>
+        </div>
+    </footer>
+    <script>
+        loadcartcount();
+        async function loadcartcount() {
+            try {
+                var response = await fetch(`/Cart/GetTotalItemInCart`);
+                if (response.status == 200) {
+                    var result = await response.json();
+                    var cartcountel = document.getElementById("cartCount");
+                    cartcountel.innerHTML = result;
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+    </script>
+</body>
+
+<script link="~/js/site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/10.3.1/swiper-bundle.min.js"></script>
+
+</html>
+@RenderSection("scripts", required: false)
+@RenderSection("styles", required: false)
+
+

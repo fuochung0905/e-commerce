@@ -1,0 +1,42 @@
+﻿@model IEnumerable<CNPM_ktxUtc2Store.Models.productVariation>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Saler/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p style="display: grid; place-content: center;">
+    <a class="btn btn-primary" asp-action="Create"><i class="fas fa-plus" style="font-size: 1em; padding-right: 5px;"></i>Thêm</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.product)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.variation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.product.productName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.variation.Id)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

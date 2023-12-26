@@ -1,0 +1,76 @@
+﻿@model CNPM_ktxUtc2Store.Models.InforStorage
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Saler/Views/Shared/_Layout.cshtml";
+
+}
+<h1>Create</h1>
+
+<h4>InforStorage</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="namestorage" class="control-label"></label>
+                <input asp-for="namestorage" class="form-control" />
+                <span asp-validation-for="namestorage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="phonenumbershop" class="control-label"></label>
+                <input asp-for="phonenumbershop" class="form-control" />
+                <span asp-validation-for="phonenumbershop" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="pictureLogo"></label>
+                <input type="file" class="form-control" asp-for="pictureLogo" id="ChooseImg" />
+            </div>
+              <div class="form-group">
+                <label asp-for="emailwork" class="control-label"></label>
+                <input asp-for="emailwork" class="form-control" />
+                <span asp-validation-for="emailwork" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="emailcskh" class="control-label"></label>
+                <input asp-for="emailcskh" class="form-control" />
+                <span asp-validation-for="emailcskh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="timework" class="control-label"></label>
+                <input asp-for="timework" class="form-control" />
+                <span asp-validation-for="timework" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="linkfacbook" class="control-label"></label>
+                <input asp-for="linkfacbook" class="form-control" />
+                <span asp-validation-for="linkfacbook" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="linkInstagram" class="control-label"></label>
+                <input asp-for="linkInstagram" class="form-control" />
+                <span asp-validation-for="linkInstagram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="linkyoutube" class="control-label"></label>
+                <input asp-for="linkyoutube" class="form-control" />
+                <span asp-validation-for="linkyoutube" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="linktiktok" class="control-label"></label>
+                <input asp-for="linktiktok" class="form-control" />
+                <span asp-validation-for="linktiktok" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

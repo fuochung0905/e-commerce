@@ -1,0 +1,158 @@
+﻿#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu sắc của overlay với độ trong suốt 50% */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1; /* Z-index cao để nằm trên tất cả các phần tử khác */
+}
+.order-complete{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position:relative;
+    margin-top:30px;
+}
+.more-address {
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    height: 60%;
+    top: 45px;
+    border: unset;
+    width: 30%;
+    right: 17%;
+    transform: translateX(-50%);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #888888;
+}
+    
+        .more-address-head{
+            display: flex;
+            flex-direction:row;
+            justify-content: space-between;
+            padding: 10px 5px;
+        }
+            .more-address-head a{
+                display: grid;
+                place-content: center;
+                padding-right: 5px;
+                color: dodgerblue;
+            }
+        .more-address-list{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+        
+.order-complete-left{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 70%;
+    border-right: 1px solid lightgray;
+    padding-right:30px;
+}
+.order-complete-address {
+    background-color: #e74c3c;
+    color: #fff;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+        .address-detail{
+   
+        }
+            .address-detail-head {
+                 display: flex;
+                 flex-direction: row;
+                justify-content: space-between;
+            }
+                .address-detail-head h4 {
+                    font-size: 18px;
+                    line-height: 24px;
+                    margin: 0;
+                }
+#open-more-address {
+    cursor: pointer;
+    font-size: 14px;
+    line-height:24px;
+
+}
+    #open-more-address:hover{
+        text-decoration:underline;
+    }
+    .address-detail-tail {
+    }
+
+    .order-complete-detail{
+         
+    }
+    .order-chose-ship{
+
+    }
+         .chosen-ship{
+             display: flex;
+             flex-direction: row;
+             padding: 5px;
+             border: 1px solid lightgray;
+             max-width: 100%;
+         }
+            .chosen-ship-detail{
+                display: flex;
+                flex-direction: column;
+                padding:0 5px;
+            }
+.order-complete-right {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 28%;
+}
+    .order-complete-product{
+         background-color: white;
+    }
+        .order-complete-product h3{
+            font-size:24px;
+        }
+        .order-complete-payment {
+            display: flex;
+            flex-direction: column;
+        }
+            .chose-payment{
+
+            }
+                .chosen-payment{
+                    padding: 10px;
+                    border: 1px solid lightgray;
+                    
+                }
+    .order-complete-end{
+
+    }
+        .order-complete-end-ship{
+
+         }
+        .end-details{
+            display: flex;
+            flex-direction: column;
+         }
+            .item-all-price, .item-ship-price, .item-end, .item-discount-price{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding:7px;
+            }
+.item-end {
+    color: #e74c3c;
+}
+#item-ship-price {
+}
+            #item-end {
+                 background-color: red;
+            }
